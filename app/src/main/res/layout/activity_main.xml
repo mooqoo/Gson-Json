@@ -11,6 +11,8 @@
         android:id="@+id/tv_log"
         android:text="Log:\n"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:maxLines = "255"
+        android:scrollbars = "vertical"/>
 
 </RelativeLayout>

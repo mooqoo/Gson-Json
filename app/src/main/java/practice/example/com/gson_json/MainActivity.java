@@ -2,6 +2,7 @@ package practice.example.com.gson_json;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -10,6 +11,9 @@ import com.google.gson.GsonBuilder;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import practice.example.com.gson_json.Model.AlbumImages;
+import practice.example.com.gson_json.Model.Albums;
+import practice.example.com.gson_json.Model.Dataset;
 
 
 /**
@@ -37,6 +41,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        tv_log.setMovementMethod(new ScrollingMovementMethod());
 
         //setup Gson/Gson builder
         GsonBuilder builder = new GsonBuilder();
@@ -55,11 +60,28 @@ public class MainActivity extends Activity {
             tv_log.setText(tv_log.getText() + json_string +"\n");
         Log.i(TAG, json_string);
 
-        //convert json back to Albums
+        //convert json back to Albums using gson
         albums = convertBackToAlbums(json_string);
+        //convert object back to json and print it
         if(tv_log!=null)
             tv_log.setText(tv_log.getText() + "convert back to object: " + gson.toJson(albums) +"\n");
+
+        //convert json to object using JSONObject
+        /*
+        try {
+            JSONObject jsonObject = new JSONObject(TESTJSON).getJSONObject("coupon");
+            if(tv_log!=null)
+                tv_log.setText(tv_log.getText() + "jsonObject: \n" + jsonObject.toString(4) +"\n");
+            Coupon coupon = Coupon.fromJson(jsonObject);
+            if(tv_log!=null && coupon!=null)
+                tv_log.setText(tv_log.getText() + "\nTest Coupon: \n" + coupon.toString() +"\n");
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        */
+
     }
+
 
     private Albums createAlbum() {
         Albums albums = new Albums();

@@ -1,4 +1,4 @@
-package practice.example.com.gson_json;
+package practice.example.com.gson_json.Model;
 
 /**
  * Created by wade0716 on 15/7/24.

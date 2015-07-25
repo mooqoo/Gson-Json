@@ -1,4 +1,4 @@
-package practice.example.com.gson_json;
+package practice.example.com.gson_json.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,5 +9,5 @@ import java.util.List;
 public class Dataset {
     public String album_id;
     public String album_title;
-    List<AlbumImages> images = new ArrayList<AlbumImages>();
+    public List<AlbumImages> images = new ArrayList<AlbumImages>();
 }

@@ -1,4 +1,4 @@
-package practice.example.com.gson_json;
+package practice.example.com.gson_json.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,6 @@ public class Albums {
     public int total_pages;
     public int page;
     public String limit;
-    List<Dataset> dataset  = new ArrayList<Dataset>();
+    public List<Dataset> dataset  = new ArrayList<Dataset>();
 
 }
