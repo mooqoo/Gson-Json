@@ -2,15 +2,14 @@ package practice.example.com.gson_json;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 import practice.example.com.gson_json.Model.AlbumImages;
 import practice.example.com.gson_json.Model.Albums;
 import practice.example.com.gson_json.Model.Dataset;
@@ -30,16 +29,37 @@ import practice.example.com.gson_json.Model.Dataset;
  *
  */
 public class MainActivity extends Activity {
-    public static final String TAG = "Json";
+    public static final String TAG = "Main";
+
+    //Global Variables
     public Gson gson;
 
-    @Bind(R.id.tv_log)
-    TextView tv_log;
+    //Use Butter Knife to bind view
+    @Bind(R.id.tv_log) TextView tv_log;
+    @OnClick({R.id.btn_generate_object, R.id.btn_gson_parse, R.id.btn_gson_tojson, R.id.btn_jsonobject_parse, R.id.btn_jsonobject_tojson, R.id.btn_log_reset})
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.btn_generate_object:
+                break;
+            case R.id.btn_gson_tojson:
+                break;
+            case R.id.btn_gson_parse:
+                break;
+            case R.id.btn_jsonobject_tojson:
+                break;
+            case R.id.btn_jsonobject_parse:
+                break;
+            case R.id.btn_log_reset:
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
         ButterKnife.bind(this);
         tv_log.setMovementMethod(new ScrollingMovementMethod());
 
@@ -65,6 +85,7 @@ public class MainActivity extends Activity {
         //convert object back to json and print it
         if(tv_log!=null)
             tv_log.setText(tv_log.getText() + "convert back to object: " + gson.toJson(albums) +"\n");
+        */
 
         //convert json to object using JSONObject
         /*

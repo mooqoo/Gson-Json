@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:padding="5dp"
+    android:columnCount="2">
+
+    <!-- button to generate object -->
+    <Button
+        android:id="@+id/btn_generate_object"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_gravity="fill"
+        android:layout_columnSpan="2"
+        android:text="reset object"/>
+
+    <!-- GSON section -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="2"
+        android:layout_gravity="fill"
+        android:background="#AAAAAA"
+        android:layout_margin="3dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GSON"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btn_gson_tojson"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="to Json"/>
+
+        <Button
+            android:id="@+id/btn_gson_parse"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="parsing"/>
+
+    </LinearLayout>
+
+    <!-- JSONObject section -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="2"
+        android:layout_gravity="fill"
+        android:background="#AAAAAA"
+        android:layout_margin="3dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="JSONObject"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btn_jsonobject_tojson"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="to Json"/>
+
+        <Button
+            android:id="@+id/btn_jsonobject_parse"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="parsing"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="3"
+        android:layout_gravity="fill"
+        android:layout_columnSpan="2"
+        android:background="#AAAAAA"
+        android:layout_margin="3dp"
+        android:padding="5dp">
+
+        <!-- textview for log -->
+        <TextView
+            android:id="@+id/tv_log"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines = "255"
+            android:scrollbars = "vertical"
+            android:text="Log: \n"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+
+        <!-- button to reset log -->
+        <Button
+            android:id="@+id/btn_log_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reset log"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</GridLayout>
