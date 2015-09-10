@@ -20,20 +20,12 @@ import butterknife.OnClick;
 import practice.example.com.gson_json.Model.AlbumImages;
 import practice.example.com.gson_json.Model.Albums;
 import practice.example.com.gson_json.Model.Dataset;
+import practice.example.com.gson_json.Util.JsonUtil;
 
 
 /**
  * This is a Sample project that use Google's gson library to convert between java object and json.
  * https://github.com/google/gson
- *
- * I follow the example from
- * http://www.studytrails.com/java/json/java-google-json-parse-json-to-java.jsp
- *
- * In this project, I set up the Gson builder
- * Then I created several model classes
- * Then I convert them into Json
- * Then I convert the json back to java object
- *
  */
 public class MainActivity extends Activity {
     public static final String TAG = "Main";
@@ -86,22 +78,6 @@ public class MainActivity extends Activity {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting().serializeNulls();
         gson = builder.create();
-
-        /*
-        //convert json to object using JSONObject
-        /*
-        try {
-            JSONObject jsonObject = new JSONObject(TESTJSON).getJSONObject("coupon");
-            if(tv_log!=null)
-                tv_log.setText(tv_log.getText() + "jsonObject: \n" + jsonObject.toString(4) +"\n");
-            Coupon coupon = Coupon.fromJson(jsonObject);
-            if(tv_log!=null && coupon!=null)
-                tv_log.setText(tv_log.getText() + "\nTest Coupon: \n" + coupon.toString() +"\n");
-        } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
-        }
-        */
-
     }
 
     //-------------------------------------- button method ---------------------------------------//
@@ -133,7 +109,6 @@ public class MainActivity extends Activity {
         //print results
         if(tv_log!=null)
             tv_log.setText(tv_log.getText() + "convert object to JSON: using GSON\n JSON: \n" + json +"\n\n");
-        Log.i(TAG, json);
     }
 
     private void gson_parseJson() {
@@ -144,11 +119,19 @@ public class MainActivity extends Activity {
     }
 
     private void jsonObject_toJson() {
+        json = JsonUtil.toJSON(album);
 
+        //print results
+        if(tv_log!=null)
+            tv_log.setText(tv_log.getText() + "convert object to JSON: using JSONObject\n JSON: \n" + json +"\n\n");
     }
 
     private void jsonObject_parseJson() {
+        album = JsonUtil.fromJSON_toAlbum(json);
 
+        //print results
+        if(tv_log!=null)
+            tv_log.setText(tv_log.getText() + "JSON object to object: using JSONObject\n" + album +"\n\n");
     }
 
     //--------------------------------------------- Create Data method ---------------------------//
