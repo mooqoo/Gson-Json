@@ -9,14 +9,23 @@ import java.util.List;
 public class Albums {
     public String title;
     public String message;
-    public List<Dataset> dataset  = new ArrayList<Dataset>();
-
-    //public String[] errors = new String[]{};
-    public List<String> errors = new ArrayList<String>();
     public String total;
     public int total_pages;
     public int page;
     public String limit;
+    public List<Dataset> dataset  = new ArrayList<Dataset>();
 
+    public String toString() {
+        String msg="\nAlbum: \n";
+        msg+="\ttitle: "          + title         + "\n";
+        msg+="\tmessage: "        + message       + "\n";
+        msg+="\ttotal: "          + total         + "\n";
+        msg+="\ttotal_pages: "    + total_pages   + "\n";
+        msg+="\tpage: "           + page          + "\n";
+        msg+="\tlimit: "          + limit         + "\n";
+        for(Dataset data: dataset)
+            msg+= data.toString();
+        return msg;
+    }
 
 }

@@ -10,4 +10,14 @@ public class Dataset {
     public String album_id;
     public String album_title;
     public List<AlbumImages> images = new ArrayList<AlbumImages>();
+
+    public String toString() {
+        String msg="\tdataset: \n";
+        msg+="\t\talbum_id: "        + album_id       + "\n";
+        msg+="\t\talbum_title: "     + album_title    + "\n";
+        msg+="\t\timages: \n";
+        for(AlbumImages image: images)
+            msg+= image.toString();
+        return msg;
+    }
 }

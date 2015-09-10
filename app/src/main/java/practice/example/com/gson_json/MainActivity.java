@@ -2,13 +2,20 @@ package practice.example.com.gson_json;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import practice.example.com.gson_json.Model.AlbumImages;
 import practice.example.com.gson_json.Model.Albums;
@@ -32,6 +39,10 @@ public class MainActivity extends Activity {
     public static final String TAG = "Main";
 
     //Global Variables
+    public Albums album = null;
+    public String json = "";
+
+    //GSON
     public Gson gson;
 
     //Use Butter Knife to bind view
@@ -40,16 +51,22 @@ public class MainActivity extends Activity {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.btn_generate_object:
+                resetObject();
                 break;
             case R.id.btn_gson_tojson:
+                gson_toJson();
                 break;
             case R.id.btn_gson_parse:
+                gson_parseJson();
                 break;
             case R.id.btn_jsonobject_tojson:
+                jsonObject_toJson();
                 break;
             case R.id.btn_jsonobject_parse:
+                jsonObject_parseJson();
                 break;
             case R.id.btn_log_reset:
+                cleanLog();
                 break;
         }
     }
@@ -59,8 +76,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
+        //bind view using butterKnife
         ButterKnife.bind(this);
+
+        //set the textview log scroll movement
         tv_log.setMovementMethod(new ScrollingMovementMethod());
 
         //setup Gson/Gson builder
@@ -68,25 +87,7 @@ public class MainActivity extends Activity {
         builder.setPrettyPrinting().serializeNulls();
         gson = builder.create();
 
-        //create albums/dataset/images
-        Albums albums = createAlbum();
-        Dataset dataset = createDataSet();
-        dataset.images.add(createAlbumImage());
-        albums.dataset.add(dataset);
-
-        //print results
-        String json_string = gson.toJson(albums);
-        if(tv_log!=null)
-            tv_log.setText(tv_log.getText() + json_string +"\n");
-        Log.i(TAG, json_string);
-
-        //convert json back to Albums using gson
-        albums = convertBackToAlbums(json_string);
-        //convert object back to json and print it
-        if(tv_log!=null)
-            tv_log.setText(tv_log.getText() + "convert back to object: " + gson.toJson(albums) +"\n");
-        */
-
+        /*
         //convert json to object using JSONObject
         /*
         try {
@@ -103,50 +104,77 @@ public class MainActivity extends Activity {
 
     }
 
+    //-------------------------------------- button method ---------------------------------------//
+    private void resetObject() {
+        List<Dataset> datasetList = new ArrayList<Dataset>();
+        datasetList.add(createDataSet(new ArrayList<AlbumImages>() {{
+                                            add(new AlbumImages());
+                                            add(new AlbumImages());
+                                            add(new AlbumImages());
+                                        }}));
+        datasetList.add(createDataSet(new ArrayList<AlbumImages>() {{
+                                            add(new AlbumImages());
+                                            add(new AlbumImages());
+                                        }}));
+        album = createAlbum(datasetList);
+        json = "";
+    }
 
-    private Albums createAlbum() {
-        Albums albums = new Albums();
-        albums.title = "Free Music Archive - Albums";
-        albums.message = "";
-        albums.total = "11259";
-        albums.total_pages = 2252;
-        albums.page = 1;
-        albums.limit = "5";
-
-
-        String json_string = gson.toJson(albums);
+    private void cleanLog() {
+        Log.i(TAG,"cleanLog(): tv_log="+tv_log);
 
         if(tv_log!=null)
-            tv_log.setText(tv_log.getText() + json_string+"\n");
-        Log.i(TAG, json_string);
+            tv_log.setText("Log: \n");
+    }
+
+    private void gson_toJson() {
+        json = gson.toJson(album);
+
+        //print results
+        if(tv_log!=null)
+            tv_log.setText(tv_log.getText() + "convert object to JSON: using GSON\n JSON: \n" + json +"\n\n");
+        Log.i(TAG, json);
+    }
+
+    private void gson_parseJson() {
+        album = gson.fromJson(json, Albums.class);
+        //print results
+        if(tv_log!=null)
+            tv_log.setText(tv_log.getText() + "convert JSON to object: using GSON\n" + album +"\n\n");
+    }
+
+    private void jsonObject_toJson() {
+
+    }
+
+    private void jsonObject_parseJson() {
+
+    }
+
+    //--------------------------------------------- Create Data method ---------------------------//
+    private Albums createAlbum(List<Dataset> dataset) {
+        Random r = new Random();
+        Albums albums = new Albums();
+        albums.title = "Free Music Archive: " + r.nextInt();
+        albums.message = Long.toString(r.nextLong(), 32);   //"";
+        albums.dataset = dataset;
+        albums.total =  Long.toString(r.nextLong());        //"11259";
+        albums.total_pages = r.nextInt();                   //2252;
+        albums.page = r.nextInt(5);
+        albums.limit = "5";
+        if(tv_log!=null)
+            tv_log.setText(tv_log.getText() + "createAlbum:" + albums.toString()+"\n");
+        Log.i(TAG, albums.toString());
 
         return albums;
     }
 
-    private Dataset createDataSet() {
+    private Dataset createDataSet(List<AlbumImages> images) {
+        Random r = new Random();
         Dataset dataset = new Dataset();
-        dataset.album_id = "7596";
-        dataset.album_title = "Album 1";
-
-        if(tv_log!=null)
-            tv_log.setText(tv_log.getText() + gson.toJson(dataset)+"\n");
-        Log.i(TAG, gson.toJson(dataset));
-
+        dataset.album_id = "" + r.nextInt(3000);
+        dataset.album_title = "Album " + Long.toString(r.nextLong(), 32);
+        dataset.images = images;
         return dataset;
-    }
-
-    private AlbumImages createAlbumImage() {
-        AlbumImages image = new AlbumImages();
-        image.image_id = "1";
-
-        if(tv_log!=null)
-            tv_log.setText(tv_log.getText() + gson.toJson(image)+"\n");
-        Log.i(TAG, gson.toJson(image));
-
-        return image;
-    }
-
-    private Albums convertBackToAlbums(String json_string) {
-        return gson.fromJson(json_string, Albums.class);
     }
 }
